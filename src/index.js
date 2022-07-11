@@ -1,17 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import morning from './images/morning.jpg';
+import noon from './images/noon.jpg'
+import evening from './images/evening.jpg'
+import night from './images/night.jpg'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+let morningImage = morning;
+let noonImage = noon;
+let eveningImage = evening;
+let nightImage = night;
+let bgimage;
+let today = new Date();
+let hours = today.getHours();
+let hour = hours > 12 ? hours - 12 : hours;
+let minutes = today.getMinutes().toString();
+let date = today.getDate().toString();
+let month = (today.getMonth() + 1).toString();
+let year = today.getFullYear().toString().slice(2);
+let ampm = hours > 12 ? 'PM' : 'AM';
+let message;
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+if (hours >= 4 && hours < 12){ message = 'morning'; bgimage = morningImage;}
+else if(hours >= 12 && hours < 17) { message = 'afternoon'; bgimage = noonImage;}
+else if(hours >= 17 && hours < 20) { message = 'evening'; bgimage = eveningImage;}
+else { message = 'night'; bgimage = nightImage;}
+
+ReactDOM.render( 
+  <>
+    <div className="bg-image">
+      <img src={bgimage}/>
+    </div>
+    <div className="main">
+      <h1>{hour}:{minutes} <span>{ampm}</span></h1>
+      <h3>{`Good ${message}`}</h3>
+      <h4>{date}/{month}/{year}</h4>
+    </div>
+  </>
+  , document.getElementById('root')
+)
