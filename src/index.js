@@ -14,7 +14,7 @@ let bgimage;
 let today = new Date();
 let hours = today.getHours();
 let hour = hours > 12 ? hours - 12 : hours;
-let minutes = today.getMinutes().toString();
+let minutes = today.getMinutes().toString().length == 1 ? '0' + today.getMinutes().toString() : today.getMinutes().toString();
 let date = today.getDate().toString();
 let month = (today.getMonth() + 1).toString();
 let year = today.getFullYear().toString().slice(2);
